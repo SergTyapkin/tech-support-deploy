@@ -1,0 +1,2 @@
+0 0 1 * * /usr/bin/certbot renew >> /var/log/le-renew.log
+0 4 * * * cd /home/tech-support-backend && python3.10 mainCronAutoAchievements.py

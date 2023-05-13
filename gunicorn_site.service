@@ -1,0 +1,18 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+Type=simple
+# the specific user that our service will run as
+User=nginx
+Group=nginx
+WorkingDirectory=/home/tech-support-backend
+Environment="DATABASE_PASSWORD=<database_password>"
+Environment="MAIL_PASSWORD=<mail_password>"
+ExecStart=gunicorn main:app -b 0.0.0.0:9000
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

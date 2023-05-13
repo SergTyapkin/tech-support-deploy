@@ -1,0 +1,26 @@
+{
+    "db_host": "localhost",
+    "db_port": 5432,
+    "db_user": "tech-support-backend",
+    "db_database": "tech-support",
+
+    "max_image_size": 512,
+
+    "api_port": "9000",
+    "debug": true,
+    "save_images_to_db": false,
+    "save_images_folder": "/data/techSupportImages/image",
+
+    "cors-origins": [
+        "http://127.0.0.1",
+        "https://127.0.0.1",
+	"http://creativetechteam.bmstu.ru",
+	"https://creativetechteam.bmstu.ru"
+    ],
+
+    "SMTP_mail_server_host": "smtp.googlemail.com",
+    "SMTP_mail_server_port": 587,
+    "SMTP_mail_server_use_tls": true,
+    "mail_address": "techsup.sergtyapkin@gmail.com",
+    "mail_sender_name": "TechSupport"
+}
