@@ -1,2 +1,0 @@
-0 0 1 * * /usr/bin/certbot renew >> /var/log/certbot-renew.log
-0 1 * * * cd /home/tech-support-backend && python3.10 -m src.mainCronAutoAchievements >> /var/log/auto-achievements.log

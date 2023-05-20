@@ -1,0 +1,1 @@
+/usr/bin/certbot renew >> /var/log/certbot-renew.log

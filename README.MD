@@ -63,11 +63,19 @@ systemctl restart nginx
 # ----- INSTALL CRONTAB TO RENEWING CERTS -----
 yum install crontabs
 systemctl enable crond.service --now
-crontab -e
-# --> insert "crontab -e" into it
+nano /etc/crontab.monthly/certbot-renew.sh
+# --> Set certbot-renew.sh into it
 ```
-> [crontab -e](crontab%20-e)
+> [certbot-renew.sh](certbot-renew.sh)
 ```shell
+chmod ugo+rwx /etc/cron.monthly/certbot-renew.sh
+nano /etc/crontab.daily/auto-achievements.sh
+# --> Set auto-achievements.sh into it
+```
+> [auto-achievements.sh](auto-achievements.sh)
+```shell
+chmod ugo+rwx /etc/cron.daily/auto-achievements.sh
+
 # ------ INSTALL BACKEND -------
 cd /home
 yum -y install python3.10
