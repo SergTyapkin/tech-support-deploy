@@ -14,10 +14,10 @@ yum install -y --update
 
 # ----- SETUP THE ENVIRONMENT ------
 nano /etc/environment
--> EDITOR=/usr/bin/nano
--> DATABASE_PASSWORD=<database_password>
--> MAIL_PASSWORD=<mail_password>
-
+# --> Set "environment" into it
+```
+> [environment](environment)
+```shell
 PATH=$PATH:/usr/pgsql-12/bin
 reboot
 
@@ -27,11 +27,18 @@ yum -y install postgresql-12
 reboot
 yum install postgresql-devel
 systemctl enable postgresql-12 --now
-psql -U postgres
-# --> CREATE DATABASE "tech-support";
-# --> \q
-createuser "tech-support-backend"
 su - postgres
+createuser "tech-support-backend"
+createuser "backups"
+psql
+# --> CREATE DATABASE "tech-support";
+# --> \password "tech-support-backend"
+# -----> Enter your <TECH_SUPPORT_BACKEND_PASSWORD>
+# --> \password "backups"
+# -----> Enter your <BACKUPS_PASSWORD>
+# --> ALTER DEFAULT PRIVILEGES FOR USER backups IN SCHEMA public GRANT SELECT ON SEQUENCES TO backups;
+# --> ALTER DEFAULT PRIVILEGES FOR USER backups IN SCHEMA public GRANT SELECT ON TABLES TO backups;
+# --> \q
 psql -t -P format=unaligned -c 'show hba_file';
 nano /var/lib/pgsql/12/data/pg_hba.conf
 # --> Change all "md5" methods to "password". See pd_hba.conf
@@ -39,6 +46,7 @@ nano /var/lib/pgsql/12/data/pg_hba.conf
 > [pg_hba.conf](pg_hba.conf)
 ```shell
 systemctl restart postgresql-12
+exit
 
 
 # ------ INSTALL NGINX -------
@@ -60,21 +68,23 @@ yum install python3-certbot-nginx
 certbot certonly --nginx -d creativetechteam.bmstu.ru -d www.creativetechteam.bmstu.ru
 systemctl restart nginx
 
-# ----- INSTALL CRONTAB TO RENEWING CERTS -----
+# ----- SETUP DATABASE BACKUPS -----
+nano ~/.pgpass
+# --> Set .pgpass into it
+```
+> [.pgpass](.pgpass)
+```shell
+chmod 0600 ~/.pgpass
+
+# ----- INSTALL CRONTAB TO RENEWING CERTS, SET AUTO-ACHIEVEMENTS AND DATABASE BACKUPS -----
+mkdir /pg_backups  # directory for backups
 yum install crontabs
+crontab -e
+# --> Set "crontab -e" into it 
+```
+> [crontab -e](crontab%20-e)
+```shell
 systemctl enable crond.service --now
-nano /etc/crontab.monthly/certbot-renew.sh
-# --> Set certbot-renew.sh into it
-```
-> [certbot-renew.sh](certbot-renew.sh)
-```shell
-chmod ugo+rwx /etc/cron.monthly/certbot-renew.sh
-nano /etc/crontab.daily/auto-achievements.sh
-# --> Set auto-achievements.sh into it
-```
-> [auto-achievements.sh](auto-achievements.sh)
-```shell
-chmod ugo+rwx /etc/cron.daily/auto-achievements.sh
 
 # ------ INSTALL BACKEND -------
 cd /home
@@ -122,12 +132,12 @@ chmod ogu+rwx /data/techSupportImages/image
 # ----- CREATE UPDATING SCRIPTS -------
 cd /home
 nano override_config.json
-# --> insert override_config.json
+# --> Set override_config.json into it
 ```
 > [override_config.json](override_config.json)
 ```shell
 nano override_autoAchievementsConfig.json
-# --> insert override_autoAchievementsConfig.json
+# --> Set override_autoAchievementsConfig.json into it
 ```
 > [override_autoAchievementsConfig.json](override_autoAchievementsConfig.json)
 ```shell

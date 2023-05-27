@@ -1,0 +1,3 @@
+EDITOR=/usr/bin/nano
+DATABASE_PASSWORD=<database_password>
+MAIL_PASSWORD=<mail_password>

@@ -24,3 +24,8 @@ GRANT SELECT, UPDATE ON ALL SEQUENCES IN SCHEMA public TO "tech-support-backend"
 
 -- Now "tech-support-backend" can CREATE, SELECT, UPDATE, INSERT, DELETE all tables
 -- And EXECUTE, CREATE. DROP trigger functions
+
+-- GRANTS TO BACKUPS USER
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO "backups";
+-- GRANT EXECUTE ON ALL FUNCTIONS IN SCHEMA public TO "backups";
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO "backups";
