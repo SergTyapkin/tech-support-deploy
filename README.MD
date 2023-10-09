@@ -63,8 +63,7 @@ firewall-cmd --zone=public --permanent --add-service=https
 firewall-cmd --reload
 
 # ------ INSTALL CERTBOT FOR HTTPS ON NGINX -----
-sudo yum install certbot certbot-python-nginx
-yum install python3-certbot-nginx
+sudo yum -y install certbot python3-certbot-nginx
 certbot certonly --nginx -d creativetechteam.bmstu.ru -d www.creativetechteam.bmstu.ru
 systemctl restart nginx
 
